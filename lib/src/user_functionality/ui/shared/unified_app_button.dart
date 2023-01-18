@@ -16,9 +16,9 @@ class UnifiedAppButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Container(
-        height: 45,
+        height: 55,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(3),
           color: AppColor.btnColor
         ),
         child: GestureDetector(
@@ -31,10 +31,8 @@ class UnifiedAppButton extends StatelessWidget {
               child: Text(
                 buttonTitle!,
                 style: const TextStyle(
-                  fontFamily: Fonts.NORMAL,
                   color: AppColor.tileColor,
-                  letterSpacing: 1.2,
-                  fontSize: 16,
+                  fontSize: 10,
                 ),
               ),
             ),

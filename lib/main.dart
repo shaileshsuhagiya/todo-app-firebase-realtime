@@ -1,5 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebasedemo/src/user_functionality/ui/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:firebasedemo/src/constant/constants.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             builder: EasyLoading.init(),
             debugShowCheckedModeBanner: false,
             theme: myTheme,
-            home:email==null? LoginScreen():ProfileScreen(),
+            home:email==null? LoginScreen():const HomeScreen(),
           );
         },
       ),

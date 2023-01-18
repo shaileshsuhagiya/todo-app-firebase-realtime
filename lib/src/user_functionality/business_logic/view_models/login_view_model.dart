@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebasedemo/src/configs/app_strings.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/enums/view_state.dart';
 import '../../../constant/constants.dart';
+import '../../ui/views/home/home_screen.dart';
 import '../../ui/views/profile/profile_screen.dart';
 import '../models/base_model.dart';
 import '../utils/app_preference.dart';
@@ -32,7 +33,7 @@ class LoginViewModel extends BaseModel {
                   Fluttertoast.showToast(msg: AppStrings.loginSuccessfully),
           clearController(),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => ProfileScreen())),
+                      MaterialPageRoute(builder: (context) => const HomeScreen())),
                 });
         EasyLoading.dismiss();
       } on FirebaseAuthException catch (error) {

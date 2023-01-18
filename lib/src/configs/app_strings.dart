@@ -12,6 +12,7 @@ class AppStrings{
   static const createAccount = 'CREATE ACCOUNT';
   static const confirmPassword = 'CONFIRM PASSWORD';
   static const noUploadedFile = 'No Uploaded File';
+  static const addYourThings = 'ADD YOUR THINGS';
 
 
   //firebase success message
