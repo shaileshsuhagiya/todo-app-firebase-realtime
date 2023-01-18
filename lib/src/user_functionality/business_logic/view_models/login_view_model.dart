@@ -19,7 +19,6 @@ class LoginViewModel extends BaseModel {
   String? errorMessage;
 
   void signIn(context) async {
-
     if (loginFormKey.currentState!.validate()) {
       try {
         EasyLoading.show(status: AppStrings.loading);
@@ -31,19 +30,19 @@ class LoginViewModel extends BaseModel {
                       PreferencesConstants.USER_EMAIL, emailController.text),
                   AppPreference.set(PreferencesConstants.UID, uid.user?.uid),
                   Fluttertoast.showToast(msg: AppStrings.loginSuccessfully),
-          clearController(),
+                  clearController(),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const HomeScreen())),
+                      MaterialPageRoute(builder: (context) => HomeScreen())),
                 });
         EasyLoading.dismiss();
       } on FirebaseAuthException catch (error) {
-       EasyLoading.dismiss();
+        EasyLoading.dismiss();
         firebaseCurrentFailure(error);
       }
     }
   }
 
-  clearController(){
+  clearController() {
     emailController.clear();
     passwordController.clear();
   }

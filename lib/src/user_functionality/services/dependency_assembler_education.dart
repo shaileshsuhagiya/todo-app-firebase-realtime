@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import '../business_logic/view_models/home_view_model.dart';
 import '../business_logic/view_models/login_view_model.dart';
 import '../business_logic/view_models/multi_file_upload_view_model.dart';
 import '../business_logic/view_models/profile_view_model.dart';
@@ -17,4 +18,6 @@ Future<void> setupDependencyAssemblerEducation() async {
 
   dependencyAssembler.registerFactory<MultiFileUploadViewModel>(
       () => MultiFileUploadViewModel());
+
+  dependencyAssembler.registerLazySingleton(() => HomeViewModel());
 }

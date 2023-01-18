@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             builder: EasyLoading.init(),
             debugShowCheckedModeBanner: false,
             theme: myTheme,
-            home:email==null? LoginScreen():const HomeScreen(),
+            home:email==null? LoginScreen(): HomeScreen(),
           );
         },
       ),
