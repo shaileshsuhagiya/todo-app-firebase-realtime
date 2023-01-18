@@ -58,7 +58,7 @@ class AddNewThingScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               const CommonTextFormField(
                 hintText: "Workshop",
               ),

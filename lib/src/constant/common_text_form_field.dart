@@ -13,7 +13,7 @@ class CommonTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 3),
+      margin: const EdgeInsets.symmetric(vertical: 3),
       child: TextFormField(
         style: const TextStyle(
           fontSize: 14,
