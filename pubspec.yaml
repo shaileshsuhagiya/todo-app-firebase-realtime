@@ -1,0 +1,85 @@
+name: firebasedemo
+description: A new Flutter project.
+authors:
+  - Creator shailesh.iosdev@gmail.com
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.3
+  provider: ^5.0.0
+  get_it: ^7.1.3
+  cached_network_image: ^3.2.1
+  line_awesome_flutter: ^2.0.0
+  firebase_auth: ^3.3.19
+  firebase_core: ^1.18.0
+  fluttertoast: ^8.0.9
+  cloud_firestore: ^3.1.18
+  animated_theme_switcher: ^2.0.6
+  shared_preferences: ^2.0.15
+  image_picker: ^0.8.5+3
+  flutter_image_compress: ^1.0.0
+  firebase_storage: ^10.2.18
+  file_picker: ^4.6.1
+  flutter_easyloading: ^3.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Head
+      fonts:
+        - asset: assets/fonts/FONT_HEAD.ttf
+    - family: Normal
+      fonts:
+        - asset: assets/fonts/FONT_NORMAL.ttf
+    - family: Subtitle
+      fonts:
+        - asset: assets/fonts/FONT_SUBTITLE.ttf
+    - family: Title
+      fonts:
+        - asset: assets/fonts/FONT_TITLE.ttf
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/custom_icons.ttf
+    - family: NewsCycle
+      fonts:
+        - asset: assets/fonts/ClanNarrow_News.ttf
+    - family: SfPro
+      fonts:
+        - asset: assets/fonts/SFPRO_DISPLAY_REGULAR.ttf
+    - family: SfProText
+      fonts:
+        - asset: assets/fonts/SF_Pro_Text.otf
+    - family: ClanNarrowMedium
+      fonts:
+        - asset: assets/fonts/FF_Clan_OT_Narrow_Medium.otf
+    - family: SFProText
+      fonts:
+        - asset: assets/fonts/SF-Pro-Text-Thin.otf
+          weight: 100
+        - asset: assets/fonts/SF-Pro-Text-Regular.otf
+          weight: 400
+        - asset: assets/fonts/SF-Pro-Text-Medium.otf
+          weight: 500
+        - asset: assets/fonts/SF-Pro-Text-Bold.otf
+          weight: 700
