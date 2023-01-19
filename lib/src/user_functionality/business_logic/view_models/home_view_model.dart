@@ -2,8 +2,19 @@ import 'package:firebasedemo/src/constant/asset.dart';
 
 import '../models/base_model.dart';
 import '../models/category_model.dart';
+import '../models/task_model.dart';
 
 class HomeViewModel extends BaseModel {
+  String selectedCategory = 'Business';
+  void onChangeCategoryValue(String value) {
+    selectedCategory = value;
+    notifyListeners();
+  }
+
+  void updateNotifierState(){
+    notifyListeners();
+  }
+
   List<CategoryModel> category = [
     CategoryModel(
         categoryId: 1,
@@ -21,5 +32,13 @@ class HomeViewModel extends BaseModel {
         categoryId: 4,
         categoryImage: Asset.wishListCategory,
         categoryName: 'Wishlist'),
+  ];
+
+  List<TaskModel> taskList = [
+    TaskModel(taskName: 'Task1', isChecked: false, date: '18-01'),
+    TaskModel(taskName: 'Task2', isChecked: false, date: ''),
+    TaskModel(taskName: 'Task3', isChecked: false, date: ''),
+    TaskModel(taskName: 'Task4', isChecked: false, date: '26-01'),
+    TaskModel(taskName: 'Task5', isChecked: false, date: ''),
   ];
 }

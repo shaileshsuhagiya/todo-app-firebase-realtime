@@ -15,10 +15,10 @@ class CommonTextFormField extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
       child: TextFormField(
-        style: const TextStyle(
-          fontSize: 14,
-          color: AppColor.tileColor,
-        ),
+          style: const TextStyle(
+            fontSize: 14,
+            color: AppColor.tileColor,
+          ),
         controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
