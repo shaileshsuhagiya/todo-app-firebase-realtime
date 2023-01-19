@@ -26,19 +26,17 @@ class AppTextStyle{
     color: AppColor.kDarkPrimaryColor,
   );
   final headerStyle = const TextStyle(
-      color: AppColor.headerColor,
+      color: AppColor.backGroundColor,
       fontFamily: Fonts.SFPROTEXT,
       fontWeight: FontWeight.bold,
       fontSize: 24);
   final headerSubTitleStyle = const TextStyle(
-      height: 1.5,
-      color: AppColor.subTitle,
-      fontFamily: Fonts.SFPROTEXT);
-  final clannRrowBold = const  TextStyle(
+      height: 1.5, color: AppColor.subTitle, fontFamily: Fonts.SFPROTEXT);
+  final clannRrowBold = const TextStyle(
       color: AppColor.forgotTextColor,
       fontFamily: Fonts.CLANNARROWBOLD,
       fontWeight: FontWeight.bold);
-  final clannRrowMedium = const   TextStyle(
+  final clannRrowMedium = const TextStyle(
       color: AppColor.textColor,
       fontSize: 12,
       fontFamily: Fonts.CLANNARROWMEDIUM);
