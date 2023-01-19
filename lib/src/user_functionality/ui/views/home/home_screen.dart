@@ -5,7 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../business_logic/models/category_model.dart';
 import '../../../business_logic/view_models/home_view_model.dart';
 import '../../../services/dependency_assembler_education.dart';
-import 'add_new_thing_screen.dart';
+import '../add_new_thing/add_new_thing_screen.dart';
 import 'widget/ripple_floating_button.dart';
 import 'task_list_screen.dart';
 
@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                           height: 70,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -100,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 45,
                         ),
                         Row(

@@ -1,4 +1,6 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebasedemo/src/configs/app_colors.dart';
+import 'package:firebasedemo/src/user_functionality/business_logic/view_models/task_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,9 +13,8 @@ import '../../widgets/custom_drop_down.dart';
 
 class AddNewThingScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
+  final TaskController taskController = dependencyAssembler<TaskController>();
+
   AddNewThingScreen({super.key});
 
   @override
@@ -88,20 +89,26 @@ class AddNewThingScreen extends StatelessWidget {
                           }),
                       CommonTextFormField(
                         hintText: "Task Name",
-                        controller: titleController,
+                        controller: taskController.titleController,
                       ),
                       CommonTextFormField(
                         hintText: "Description",
-                        controller: descController,
+                        controller: taskController.descController,
                       ),
                       CommonTextFormField(
-                        hintText: "Description",
+                        hintText: "Due Date",
                         readOnly: true,
-                        controller: dateController,
+                        controller: taskController.dateController,
                       ),
                       UnifiedAppButton(
                           buttonTitle: AppStrings.addYourThings,
-                          onPress: () {}),
+                          onPress: () {
+                            taskController.addNewThing(
+                                _homeViewModel.selectedCategoryId,
+                                taskController.titleController.text,
+                                taskController.descController.text,
+                                DateTime.now());
+                          }),
                     ],
                   ),
                 ),

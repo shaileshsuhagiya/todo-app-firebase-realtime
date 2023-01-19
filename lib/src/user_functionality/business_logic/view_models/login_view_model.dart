@@ -86,6 +86,9 @@ class LoginViewModel extends BaseModel {
         .collection(AppStrings.user)
         .doc(user.uid)
         .set(userModel.toMap());
+    AppPreference.set(
+        PreferencesConstants.USER_EMAIL, userModel.email);
+    AppPreference.set(PreferencesConstants.UID, userModel);
     Fluttertoast.showToast(msg: AppStrings.googleCreated);
 
     clearController();
