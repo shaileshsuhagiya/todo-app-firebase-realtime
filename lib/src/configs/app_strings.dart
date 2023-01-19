@@ -7,6 +7,7 @@ class AppStrings{
   static const forgotPassword = 'Forgot Password?';
   static const login = 'Login';
   static const dontHaveAccount = 'Dont have account? ';
+  static const signWithGoogle = 'SIGN IN WITH GOOGLE';
   static const createANewAccount = 'Create a new account';
   static const alreadyHaveAAccount = 'Already have a account? ';
   static const createAccount = 'CREATE ACCOUNT';
@@ -17,6 +18,8 @@ class AppStrings{
 
   //firebase success message
   static const accountCreated='Account created successfully :) ';
+  static const googleCreated='Login with google successfully :) ';
+  static const googleCreatedFailed='Login with google failed :) ';
   static const loginSuccessfully='Login Successful';
 
 

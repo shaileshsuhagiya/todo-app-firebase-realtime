@@ -1,4 +1,5 @@
 import 'package:firebasedemo/src/configs/app_text_style.dart';
+import 'package:firebasedemo/src/user_functionality/ui/views/login/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasedemo/src/configs/app_strings.dart';
@@ -89,7 +90,7 @@ class RegisterScreen extends StatelessWidget {
                         style:AppTextStyle().clannRrowMedium.copyWith(color:AppColor.createAccountHeading ),
                         recognizer: new TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder:(_)=> RegisterScreen()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder:(_)=> LoginScreen()));
                           },
                       )
                     ])),

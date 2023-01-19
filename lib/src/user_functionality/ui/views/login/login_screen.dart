@@ -5,17 +5,16 @@ import 'package:firebasedemo/src/configs/app_colors.dart';
 import 'package:firebasedemo/src/configs/app_strings.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/utils/validations.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/view_models/login_view_model.dart';
-import 'package:firebasedemo/src/user_functionality/ui/shared/fonts.dart';
 import 'package:firebasedemo/src/user_functionality/ui/views/register/register_screen.dart';
+import '../../../../constant/asset.dart';
 import '../../../services/dependency_assembler_education.dart';
 import '../../shared/coty_text_field.dart';
 import '../../shared/unified_app_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  final LoginViewModel _auth =
-      dependencyAssembler<LoginViewModel>();
+  final LoginViewModel _auth = dependencyAssembler<LoginViewModel>();
 
-   LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +31,8 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(
                   height: 90,
                 ),
-                 Text(AppStrings.welcomeBack,
-                    style: AppTextStyle().headerStyle),
-                 Text(
+                Text(AppStrings.welcomeBack, style: AppTextStyle().headerStyle),
+                Text(
                   AppStrings.signAContinues,
                   style: AppTextStyle().headerSubTitleStyle,
                 ),
@@ -59,25 +57,47 @@ class LoginScreen extends StatelessWidget {
                     _auth.passwordController.text = value!;
                   },
                 ),
-                 Align(
-                  alignment: Alignment.topRight,
-                  child: Text(AppStrings.forgotPassword,
-                      style:AppTextStyle().clannRrowBold),
-                ),
                 UnifiedAppButton(
                     buttonTitle: AppStrings.login,
                     onPress: () {
                       _auth.signIn(context);
                     }),
+                GestureDetector(
+                   behavior: HitTestBehavior.opaque,
+                  onTap: (){
+                    _auth.signInWithGoogle(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        Asset.icGoogle,
+                        height: 30,
+                        width: 30,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(AppStrings.signWithGoogle,textAlign: TextAlign.center,style: AppTextStyle()
+                          .clannRrowMedium
+                          .copyWith(color: AppColor.createAccountHeading,fontSize: 15),)
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 RichText(
                     text: TextSpan(
                         text: AppStrings.dontHaveAccount,
-                        style:AppTextStyle().clannRrowMedium,
+                        style: AppTextStyle().clannRrowMedium,
                         children: [
                       TextSpan(
                         text: AppStrings.createANewAccount,
-                        style:AppTextStyle().clannRrowMedium.copyWith(color:AppColor.createAccountHeading ),
-                        recognizer: new TapGestureRecognizer()
+                        style: AppTextStyle()
+                            .clannRrowMedium
+                            .copyWith(color: AppColor.createAccountHeading),
+                        recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Navigator.pushReplacement(
                                 context,

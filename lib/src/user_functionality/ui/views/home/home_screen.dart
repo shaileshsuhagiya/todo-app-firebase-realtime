@@ -1,5 +1,4 @@
 import 'package:firebasedemo/src/configs/app_colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -7,6 +6,7 @@ import '../../../business_logic/models/category_model.dart';
 import '../../../business_logic/view_models/home_view_model.dart';
 import '../../../services/dependency_assembler_education.dart';
 import 'add_new_thing_screen.dart';
+import 'widget/ripple_floating_button.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
@@ -249,31 +249,36 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: InkWell(
-        borderRadius: BorderRadius.circular(50),
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const AddNewThingScreen(),
-          ));
-        },
-        child: Hero(
-          tag: "FloatingTag",
-          child: Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColor.skyBackgroundTextColor,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColor.btnColor.withOpacity(0.3),
-                  spreadRadius: 7,
-                  blurRadius: 7,
-                  offset: const Offset(3, 5),
-                ),
-              ],
+      floatingActionButton: RippleFloatingButton(
+        color: AppColor.skyBackgroundTextColor,
+        repeat: true,
+
+        child: InkWell(
+          borderRadius: BorderRadius.circular(50),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const AddNewThingScreen(),
+            ));
+          },
+          child: Hero(
+            tag: "FloatingTag",
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColor.skyBackgroundTextColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.btnColor.withOpacity(0.3),
+                    spreadRadius: 7,
+                    blurRadius: 7,
+                    offset: const Offset(3, 5),
+                  ),
+                ],
+              ),
+              child: const Icon(Icons.add, color: AppColor.tileColor, size: 35),
             ),
-            child: const Icon(Icons.add, color: AppColor.tileColor, size: 35),
           ),
         ),
       ),
