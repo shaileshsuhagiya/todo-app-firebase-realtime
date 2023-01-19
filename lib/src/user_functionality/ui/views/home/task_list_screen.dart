@@ -45,8 +45,8 @@ class TaskListScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      _homeViewModel.taskList[index].isChecked =
-                          !_homeViewModel.taskList[index].isChecked;
+                      _homeViewModel.taskList[index].isCompleted =
+                          !_homeViewModel.taskList[index].isCompleted;
                       _homeViewModel.updateNotifierState();
                     },
                     child: Container(
@@ -55,7 +55,7 @@ class TaskListScreen extends StatelessWidget {
                       child: Slidable(
                         key: const ValueKey(0),
                         endActionPane: ActionPane(
-                          motion: ScrollMotion(),
+                          motion: const ScrollMotion(),
                           children: [
                             SlidableAction(
                               // An action can be bigger than the others.
@@ -94,16 +94,16 @@ class TaskListScreen extends StatelessWidget {
                                   side: BorderSide(
                                       color: Colors.grey[400]!, width: 1.4),
                                   activeColor:
-                                      _homeViewModel.taskList[index].isChecked
+                                      _homeViewModel.taskList[index].isCompleted
                                           ? Colors.grey[300]
                                           : Colors.transparent,
-                                  value:
-                                      _homeViewModel.taskList[index].isChecked,
+                                  value: _homeViewModel
+                                      .taskList[index].isCompleted,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   onChanged: (bool? value) {
-                                    _homeViewModel.taskList[index].isChecked =
+                                    _homeViewModel.taskList[index].isCompleted =
                                         value!;
                                     _homeViewModel.updateNotifierState();
                                   },
@@ -114,7 +114,7 @@ class TaskListScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _homeViewModel.taskList[index].taskName,
+                                    _homeViewModel.taskList[index].taskTitle??"",
                                     style: const TextStyle(
                                         color: AppColor.kDarkPrimaryColor,
                                         fontSize: 11,
@@ -122,7 +122,10 @@ class TaskListScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   Text(
-                                    _homeViewModel.taskList[index].date,
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                            _homeViewModel
+                                                .taskList[index].dueDate!)
+                                        .toString(),
                                     style: const TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w300,

@@ -1,4 +1,6 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebasedemo/src/configs/app_colors.dart';
+import 'package:firebasedemo/src/user_functionality/business_logic/view_models/task_controller.dart';
 import 'package:firebasedemo/src/constant/asset.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/utils/validations.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/view_models/add_new_things_model.dart';
@@ -21,6 +23,8 @@ class AddNewThingScreen extends StatelessWidget {
   final TextEditingController descController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final _form = GlobalKey<FormState>(); //for storing form state.
+
+  final TaskController taskController = dependencyAssembler<TaskController>();
 
   AddNewThingScreen({super.key});
   @override
