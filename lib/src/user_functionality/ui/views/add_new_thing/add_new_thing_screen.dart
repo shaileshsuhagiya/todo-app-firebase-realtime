@@ -111,7 +111,7 @@ class AddNewThingScreen extends StatelessWidget {
                           controller: descController,
                         ),
                         CommonTextFormField(
-                          hintText: AppStrings.date,
+                          hintText: AppStrings.dueDate,
                           readOnly: true,
                           onTap: () async {
                             DateTime? pickedDate =
@@ -130,7 +130,13 @@ class AddNewThingScreen extends StatelessWidget {
                         UnifiedAppButton(
                             buttonTitle: AppStrings.addYourThings,
                             onPress: () {
-                              if (_form.currentState!.validate()) {}
+                              if (_form.currentState!.validate()) {
+                                taskController.addNewThing(
+                                    _homeViewModel.selectedCategoryId,
+                                    taskController.titleController.text,
+                                    taskController.descController.text,
+                                    DateTime.now());
+                              }
                             }),
                       ],
                     ),

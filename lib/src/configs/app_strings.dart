@@ -23,7 +23,7 @@ class AppStrings {
   static const addNewThing = 'Add new thing';
   static const taskName = 'Task Name';
   static const description = 'Description';
-  static const date = 'Date';
+  static const dueDate = 'Due Date';
   static const edit = 'Edit';
   static const delete = 'Delete';
   static const task = 'Task';

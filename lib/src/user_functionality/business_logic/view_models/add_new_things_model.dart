@@ -11,7 +11,6 @@ class AddNewThingsModel extends BaseModel {
   int selectedCategoryId = 1;
   void onChangeCategoryValue(String value) {
     final HomeViewModel homeViewModel = dependencyAssembler<HomeViewModel>();
-
     selectedCategory = value;
     selectedCategoryId = homeViewModel.category
         .firstWhere((element) => element.categoryName == selectedCategory)
