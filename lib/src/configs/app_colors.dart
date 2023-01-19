@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 ///app common color
 class AppColor{
-  static const tileColor = Colors.white;
+    static const tileColor = Colors.white;
   static const headerColor = Color(0xff2847C6);
   static const subTitle = Color(0xffD8DCF7);
   static const forgotTextColor =Color(0xff7488E1);

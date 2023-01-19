@@ -2,7 +2,7 @@ import 'package:firebasedemo/src/configs/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-
+import '../../../../configs/app_strings.dart';
 import '../../../business_logic/view_models/home_view_model.dart';
 import '../../../services/dependency_assembler_education.dart';
 
@@ -20,7 +20,7 @@ class TaskListScreen extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
           title: Text(
-            '$taskCategory Task',
+            '$taskCategory ${AppStrings.task}',
             style: const TextStyle(
                 color: AppColor.backGroundColor,
                 fontSize: 17,
@@ -64,7 +64,7 @@ class TaskListScreen extends StatelessWidget {
                               backgroundColor: AppColor.btnColor,
                               foregroundColor: AppColor.tileColor,
                               icon: Icons.edit,
-                              label: 'Edit',
+                              label: AppStrings.edit,
                             ),
                             SlidableAction(
                               onPressed: (context) {},
@@ -72,15 +72,13 @@ class TaskListScreen extends StatelessWidget {
                               backgroundColor: AppColor.redColor,
                               foregroundColor: AppColor.tileColor,
                               icon: Icons.delete,
-                              label: 'Delete',
+                              label: AppStrings.delete,
                             ),
                           ],
                         ),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
-                          //  margin: const EdgeInsets.symmetric(
-                          //    horizontal: 15, vertical: 7),
                           decoration: BoxDecoration(
                             color: Colors.grey[50],
                             borderRadius: BorderRadius.circular(4),
@@ -111,9 +109,7 @@ class TaskListScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              const SizedBox(
-                                width: 12,
-                              ),
+                              const SizedBox(width: 12),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [

@@ -1,7 +1,8 @@
 import 'package:firebasedemo/src/configs/app_colors.dart';
+import 'package:firebasedemo/src/configs/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
+import '../../../../constant/asset.dart';
 import '../../../business_logic/models/category_model.dart';
 import '../../../business_logic/view_models/home_view_model.dart';
 import '../../../services/dependency_assembler_education.dart';
@@ -23,8 +24,7 @@ class HomeScreen extends StatelessWidget {
         leadingWidth: 40,
         leading: Padding(
           padding: const EdgeInsets.only(left: 15),
-          child: Image.asset('assets/images/menu.png',
-              color: AppColor.skyTextColor),
+          child: Image.asset(Asset.menu, color: AppColor.skyTextColor),
         ),
       ),
       body: Column(
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage('assets/images/sky_background.png'),
+                  image: AssetImage(Asset.skyBackground),
                   fit: BoxFit.fill,
                 )),
               ),
@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Your\nThings',
+                                AppStrings.yourThings,
                                 style: TextStyle(
                                   fontSize: 26,
                                   color: AppColor.skyTextColor,
@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                                           fontSize: 20,
                                           color: AppColor.skyTextColor,
                                           fontWeight: FontWeight.w500)),
-                                  Text('Personal',
+                                  Text(AppStrings.personal,
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: AppColor.textColor,
@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
                                           fontSize: 20,
                                           color: AppColor.skyTextColor,
                                           fontWeight: FontWeight.w500)),
-                                  Text('Bussiness',
+                                  Text(AppStrings.business,
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: AppColor.textColor,
@@ -100,9 +100,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 45,
-                        ),
+                        const SizedBox(height: 45),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
@@ -136,7 +134,7 @@ class HomeScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.fromLTRB(20, 25, 20, 5),
             child: Text(
-              'INBOX',
+              AppStrings.inbox,
               style: TextStyle(
                   color: Colors.grey,
                   fontSize: 12,
@@ -172,7 +170,9 @@ class HomeScreen extends StatelessWidget {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => TaskListScreen(taskCategory:  category.categoryName,),
+                                        builder: (context) => TaskListScreen(
+                                          taskCategory: category.categoryName,
+                                        ),
                                       ));
                                 },
                                 leading: Container(
@@ -201,7 +201,7 @@ class HomeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w500),
                                 ),
                                 subtitle: const Text(
-                                  'SubTitle',
+                                  AppStrings.subTitle,
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: Colors.grey,
@@ -227,13 +227,13 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         const Text(
-                          'COMPLETED',
+                          AppStrings.completed,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 12,
                               fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Container(
                           height: 20,
                           width: 20,
@@ -268,7 +268,7 @@ class HomeScreen extends StatelessWidget {
             ));
           },
           child: Hero(
-            tag: "FloatingTag",
+            tag: AppStrings.floatingTag,
             child: Container(
               width: 50,
               height: 50,

@@ -33,6 +33,19 @@ class Validations {
       return ("Enter Valid Password(Min. 6 Character)");
     }
   }
+  String? descriptionValidation(value) {
+    if (value.isEmpty) {
+      return "Description Can't Empty";
+    }
+    return null;
+  }
+  String? taskValidation(value) {
+    if (value.isEmpty) {
+      return "Task Can't Empty";
+    }
+    return null;
+  }
+
 
  /* String? confirmPasswordValidation(value) {
     final AuthenticationViewModel auth =

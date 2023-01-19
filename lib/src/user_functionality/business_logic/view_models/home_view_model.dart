@@ -6,16 +6,6 @@ import '../models/category_model.dart';
 import '../models/task_model.dart';
 
 class HomeViewModel extends BaseModel {
-  String selectedCategory = 'Personal';
-  int selectedCategoryId = 1;
-  void onChangeCategoryValue(String value) {
-    selectedCategory = value;
-    selectedCategoryId = category
-        .firstWhere((element) => element.categoryName == selectedCategory)
-        .categoryId;
-    notifyListeners();
-  }
-
   void updateNotifierState() {
     notifyListeners();
   }
