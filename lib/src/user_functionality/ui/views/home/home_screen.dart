@@ -7,6 +7,7 @@ import '../../../business_logic/view_models/home_view_model.dart';
 import '../../../services/dependency_assembler_education.dart';
 import 'add_new_thing_screen.dart';
 import 'widget/ripple_floating_button.dart';
+import 'task_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 230,
+                height: 235,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -41,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 )),
               ),
               Container(
-                height: 230,
+                height: 235,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.black45,
                 child: SafeArea(
@@ -104,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: const [
                             Text('Sep 5,2015',
                                 style: TextStyle(
                                   fontSize: 12,
@@ -125,7 +126,7 @@ class HomeScreen extends StatelessWidget {
               Positioned(
                 right: 0,
                 child: Container(
-                  height: 230,
+                  height: 235,
                   width: 150,
                   color: Colors.black12,
                 ),

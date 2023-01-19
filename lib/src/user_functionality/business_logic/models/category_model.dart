@@ -8,3 +8,5 @@ class CategoryModel {
       required this.categoryName,
       required this.categoryImage});
 }
+
+
