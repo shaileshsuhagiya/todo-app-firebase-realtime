@@ -32,6 +32,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   flutter_staggered_animations: ^1.1.1
   google_sign_in: ^5.4.3
+  flutter_slidable: ^2.0.0
 
 dev_dependencies:
   flutter_test:

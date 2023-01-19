@@ -168,6 +168,13 @@ class HomeScreen extends StatelessWidget {
                               child: ListTile(
                                 contentPadding:
                                     const EdgeInsets.symmetric(vertical: 10),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TaskListScreen(taskCategory:  category.categoryName,),
+                                      ));
+                                },
                                 leading: Container(
                                   width: 50,
                                   height: 50,
@@ -253,12 +260,11 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: RippleFloatingButton(
         color: AppColor.skyBackgroundTextColor,
         repeat: true,
-
         child: InkWell(
           borderRadius: BorderRadius.circular(50),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const AddNewThingScreen(),
+              builder: (context) => AddNewThingScreen(),
             ));
           },
           child: Hero(

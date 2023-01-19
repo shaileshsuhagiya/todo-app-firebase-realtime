@@ -6,19 +6,25 @@ class CommonTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? hintText;
   final TextEditingController? controller;
+  final bool readOnly;
 
   const CommonTextFormField(
-      {super.key, this.onChanged, this.hintText, this.controller});
+      {super.key,
+      this.onChanged,
+      this.hintText,
+      this.controller,
+      this.readOnly = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
       child: TextFormField(
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColor.tileColor,
-          ),
+        readOnly: readOnly,
+        style: const TextStyle(
+          fontSize: 14,
+          color: AppColor.tileColor,
+        ),
         controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(

@@ -21,5 +21,6 @@ class AppColor{
   static const skyBackgroundTextColor = Color(0xff2eb9ef);
   static const btnColor = Color(0xff2dbaef);
   static const backGroundColor = Color(0xff46539e);
+  static const redColor = Color(0xffd02020);
 
 }

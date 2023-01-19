@@ -11,6 +11,10 @@ import '../../widgets/custom_drop_down.dart';
 
 class AddNewThingScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  AddNewThingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class AddNewThingScreen extends StatelessWidget {
               color: AppColor.skyBackgroundTextColor,
               size: 25,
             )),
+        centerTitle: true,
         title: const Text(
           'Add new thing',
           style: TextStyle(fontSize: 17, color: AppColor.subTitle),
@@ -81,17 +86,18 @@ class AddNewThingScreen extends StatelessWidget {
                           onChanged: (newValue) {
                             _homeViewModel.onChangeCategoryValue(newValue!);
                           }),
-                      const CommonTextFormField(
-                        hintText: "Workshop",
+                      CommonTextFormField(
+                        hintText: "Task Name",
+                        controller: titleController,
                       ),
-                      const CommonTextFormField(
-                        hintText: "Place",
+                      CommonTextFormField(
+                        hintText: "Description",
+                        controller: descController,
                       ),
-                      const CommonTextFormField(
-                        hintText: "Time",
-                      ),
-                      const CommonTextFormField(
-                        hintText: "Notification",
+                      CommonTextFormField(
+                        hintText: "Description",
+                        readOnly: true,
+                        controller: dateController,
                       ),
                       UnifiedAppButton(
                           buttonTitle: AppStrings.addYourThings,

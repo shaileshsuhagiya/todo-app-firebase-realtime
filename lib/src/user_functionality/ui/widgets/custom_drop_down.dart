@@ -4,14 +4,14 @@ import '../../../configs/app_colors.dart';
 import '../../business_logic/models/category_model.dart';
 
 class CustomDropDownButton extends StatelessWidget {
-  String? dropdownValue;
-  Function(String?)? onChanged;
-  List<CategoryModel>? dropDownList;
-  CustomDropDownButton({super.key, this.dropdownValue, this.onChanged,this.dropDownList});
+  final String? dropdownValue;
+  final Function(String?)? onChanged;
+  final List<CategoryModel>? dropDownList;
+  const CustomDropDownButton({super.key, this.dropdownValue, this.onChanged,this.dropDownList});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: 50,
         child: DropdownButton<String>(
           value: dropdownValue,
@@ -22,7 +22,7 @@ class CustomDropDownButton extends StatelessWidget {
                 fontSize: 14,
                 color: Colors.white24,
               )),
-          icon: const Icon(Icons.arrow_drop_down),
+          icon: const Icon(Icons.arrow_drop_down,color: Colors.white,),
           onChanged: onChanged!,
           items: dropDownList!
               .map<DropdownMenuItem<String>>((CategoryModel value) {
