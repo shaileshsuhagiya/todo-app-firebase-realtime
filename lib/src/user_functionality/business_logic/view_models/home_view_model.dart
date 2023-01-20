@@ -14,6 +14,9 @@ import '../utils/app_preference.dart';
 class HomeViewModel extends BaseModel {
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
+  HomeViewModel(){
+    taskStream();
+  }
   void updateNotifierState() {
     notifyListeners();
   }
