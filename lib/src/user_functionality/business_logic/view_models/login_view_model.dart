@@ -47,13 +47,16 @@ class LoginViewModel extends BaseModel {
     }
   }
 
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   signInWithGoogle(BuildContext context) async {
-    EasyLoading.show(status: AppStrings.loading);
+     EasyLoading.show(status: AppStrings.loading);
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
-      await googleSignIn.signOut();
-      GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      googleSignIn.isSignedIn().then((value) async {
+        await googleSignIn.signOut();
+      });
 
+      GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
       GoogleSignInAuthentication? googleSignInAuthentication =
           await googleSignInAccount?.authentication;
       AuthCredential credential = GoogleAuthProvider.credential(
@@ -87,7 +90,7 @@ class LoginViewModel extends BaseModel {
         .doc(user.uid)
         .set(userModel.toMap());
     AppPreference.set(PreferencesConstants.USER_EMAIL, userModel.email);
-    AppPreference.set(PreferencesConstants.UID, userModel);
+    AppPreference.set(PreferencesConstants.UID, userModel.uid);
     Fluttertoast.showToast(msg: AppStrings.googleCreated);
 
     clearController();
