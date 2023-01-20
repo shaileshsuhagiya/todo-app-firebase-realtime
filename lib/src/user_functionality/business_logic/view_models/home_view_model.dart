@@ -14,7 +14,7 @@ import '../utils/app_preference.dart';
 class HomeViewModel extends BaseModel {
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-  HomeViewModel(){
+  HomeViewModel() {
     taskStream();
   }
   void updateNotifierState() {
@@ -44,19 +44,21 @@ class HomeViewModel extends BaseModel {
   StreamSubscription<QuerySnapshot>? streamSub;
   taskStream() {
     var uid = AppPreference.getString(PreferencesConstants.UID);
-    streamSub = fireStore
-        .collection('task')
-        .doc(uid)
-        .collection(uid!)
-        .orderBy("createdAt", descending: true)
-        .snapshots()
-        .listen((event) {
-      taskList.clear();
-      for (var element in event.docs) {
-        taskList.add(TaskModel.fromJson(element.id, element.data()));
-      }
-      notifyListeners();
-    });
+    if (uid != null) {
+      streamSub = fireStore
+          .collection('task')
+          .doc(uid)
+          .collection(uid!)
+          .orderBy("createdAt", descending: true)
+          .snapshots()
+          .listen((event) {
+        taskList.clear();
+        for (var element in event.docs) {
+          taskList.add(TaskModel.fromJson(element.id, element.data()));
+        }
+        notifyListeners();
+      });
+    }
   }
 
   getCategoryCount(int categoryId) {
