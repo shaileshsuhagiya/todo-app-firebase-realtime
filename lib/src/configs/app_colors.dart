@@ -7,7 +7,7 @@ class AppColor {
   static const subTitle = Color(0xffD8DCF7);
   static const forgotTextColor = Color(0xff7488E1);
   static const textColor = Color(0xff8E8E8E);
-  static final textWhiteColor = Color(0xffFFFFFF).withOpacity(0.6);
+  static final textWhiteColor = const Color(0xffFFFFFF).withOpacity(0.6);
   static const createAccountHeading = Color(0xff3667C4);
   static const textFieldBorder = Color(0xFFE4E9ED);
   static const iconColor = Color(0xff45D2FD);

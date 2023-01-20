@@ -88,7 +88,7 @@ class RegisterScreen extends StatelessWidget {
                       TextSpan(
                         text: AppStrings.login,
                         style:AppTextStyle().clannRrowMedium.copyWith(color:AppColor.createAccountHeading ),
-                        recognizer: new TapGestureRecognizer()
+                        recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Navigator.pushReplacement(context, MaterialPageRoute(builder:(_)=> LoginScreen()));
                           },

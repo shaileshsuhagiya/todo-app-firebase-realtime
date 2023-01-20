@@ -16,8 +16,8 @@ class CotyTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final FormFieldSetter<String>? onSaved;
 
-  CotyTextField(
-      {this.onChanged,
+  const CotyTextField(
+      {super.key, this.onChanged,
       this.updateVlidationState,
       this.isDisable = false,
       this.controller,

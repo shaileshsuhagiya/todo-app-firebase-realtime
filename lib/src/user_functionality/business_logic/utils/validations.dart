@@ -1,5 +1,3 @@
-import '../../services/dependency_assembler_education.dart';
-
 class Validations {
   String? nameValidation(value) {
     RegExp regex = new RegExp(r'^.{3,}$');
@@ -25,7 +23,7 @@ class Validations {
   }
 
   String? passwordValidation(value) {
-    RegExp regex = new RegExp(r'^.{6,}$');
+    RegExp regex = RegExp(r'^.{6,}$');
     if (value!.isEmpty) {
       return ("Password is required for register");
     }
@@ -59,9 +57,9 @@ class Validations {
 extension DateHelpers on DateTime {
   bool isToday() {
     final now = DateTime.now();
-    return now.day == this.day &&
-        now.month == this.month &&
-        now.year == this.year;
+    return now.day == day &&
+        now.month == month &&
+        now.year == year;
   }
 
 }

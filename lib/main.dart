@@ -20,6 +20,8 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   var email = AppPreference.getString(PreferencesConstants.USER_EMAIL);
+
+  MyApp({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
