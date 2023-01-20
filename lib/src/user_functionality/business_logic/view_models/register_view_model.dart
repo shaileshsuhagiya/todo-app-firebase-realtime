@@ -49,7 +49,7 @@ class RegisterViewModel extends BaseModel {
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;
-    userModel.name = emailController.text;
+    userModel.name = nameController.text;
     userModel.password = passwordController.text;
 
     await firebaseFirestore

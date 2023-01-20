@@ -1,10 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasedemo/src/constant/asset.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/utils/validations.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import '../../../configs/app_strings.dart';
 import '../../../constant/constants.dart';
 import '../models/base_model.dart';
 import '../models/category_model.dart';
@@ -13,10 +13,6 @@ import '../utils/app_preference.dart';
 
 class HomeViewModel extends BaseModel {
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-
-  HomeViewModel() {
-    taskStream();
-  }
 
   void updateNotifierState() {
     notifyListeners();
@@ -42,10 +38,10 @@ class HomeViewModel extends BaseModel {
   ];
 
   List<TaskModel> taskList = [];
-
+  StreamSubscription<QuerySnapshot>? streamSub;
   taskStream() {
     var uid = AppPreference.getString(PreferencesConstants.UID);
-    fireStore
+    streamSub = fireStore
         .collection('task')
         .doc(uid)
         .collection(uid!)
@@ -98,9 +94,10 @@ class HomeViewModel extends BaseModel {
 
   logOutCurrentUser() async {
     try {
+      streamSub?.cancel();
+      taskList.clear();
       await FirebaseAuth.instance.signOut();
       await AppPreference.clear();
-      taskList.clear();
     } catch (e) {
       EasyLoading.dismiss();
     }
