@@ -1,9 +1,10 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasedemo/src/constant/asset.dart';
-import 'package:flutter/cupertino.dart';
-
+import 'package:firebasedemo/src/user_functionality/business_logic/utils/validations.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import '../../../configs/app_strings.dart';
 import '../../../constant/constants.dart';
 import '../models/base_model.dart';
 import '../models/category_model.dart';
@@ -12,18 +13,9 @@ import '../utils/app_preference.dart';
 
 class HomeViewModel extends BaseModel {
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-  String selectedCategory = 'Personal';
-  int selectedCategoryId = 1;
 
-  HomeViewModel(){
+  HomeViewModel() {
     taskStream();
-  }
-  void onChangeCategoryValue(String value) {
-    selectedCategory = value;
-    selectedCategoryId = category
-        .firstWhere((element) => element.categoryName == selectedCategory)
-        .categoryId;
-    notifyListeners();
   }
 
   void updateNotifierState() {
@@ -49,13 +41,7 @@ class HomeViewModel extends BaseModel {
         categoryName: 'Wishlist'),
   ];
 
-  List<TaskModel> taskList = [
-    /*TaskModel(taskName: 'Task1', isChecked: false, date: '18-01'),
-    TaskModel(taskName: 'Task2', isChecked: false, date: ''),
-    TaskModel(taskName: 'Task3', isChecked: false, date: ''),
-    TaskModel(taskName: 'Task4', isChecked: false, date: '26-01'),
-    TaskModel(taskName: 'Task5', isChecked: false, date: ''),*/
-  ];
+  List<TaskModel> taskList = [];
 
   taskStream() {
     var uid = AppPreference.getString(PreferencesConstants.UID);
@@ -66,11 +52,57 @@ class HomeViewModel extends BaseModel {
         .orderBy("createdAt", descending: true)
         .snapshots()
         .listen((event) {
+      taskList.clear();
       for (var element in event.docs) {
-        DocumentSnapshot documentSnapshot = element;
-        jsonEncode(element.data());
-        documentSnapshot.data();
+        taskList.add(TaskModel.fromJson(element.id, element.data()));
       }
+      notifyListeners();
     });
+  }
+
+  getCategoryCount(int categoryId) {
+    return taskList
+        .where((element) =>
+            element.categoryType == categoryId &&
+            DateTime.fromMicrosecondsSinceEpoch(element.dueDate!).isToday())
+        .toList()
+        .length;
+  }
+
+  getCategorySubTitle(int categoryId) {
+    return taskList
+        .where((element) => element.categoryType == categoryId)
+        .toList()
+        .map((e) => e.taskTitle)
+        .join(", ")
+        .toString();
+  }
+
+  getTodayPercentage() {
+    int total = taskList
+        .where((element) =>
+            DateTime.fromMicrosecondsSinceEpoch(element.dueDate!).isToday())
+        .toList()
+        .length;
+
+    int todayCompletedTotal = taskList
+        .where((element) =>
+            element.isCompleted &&
+            DateTime.fromMicrosecondsSinceEpoch(element.dueDate!).isToday())
+        .toList()
+        .length;
+    double percent = todayCompletedTotal / total;
+
+    return percent.isNaN ? 0 : (percent * 100).round();
+  }
+
+  logOutCurrentUser() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      await AppPreference.clear();
+      taskList.clear();
+    } catch (e) {
+      EasyLoading.dismiss();
+    }
   }
 }

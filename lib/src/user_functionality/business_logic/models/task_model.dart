@@ -8,6 +8,7 @@ class TaskModel {
     this.taskTitle,
     this.userId,
     this.isCompleted = false,
+    this.id,
   });
 
   int? categoryType;
@@ -18,15 +19,17 @@ class TaskModel {
   String? taskTitle;
   String? userId;
   bool isCompleted;
+  String? id;
 
-  factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(
+  factory TaskModel.fromJson(docId,Map<String, dynamic> json,) => TaskModel(
+    id:docId,
     categoryType: json["categoryType"],
     createdAt: json["createdAt"],
     updatedAt: json["updatedAt"],
     dueDate: json["dueDate"],
     description: json["description"],
     taskTitle: json["taskTitle"],
-    isCompleted: json["isCompleted"],
+    isCompleted: json["isCompleted"]?? false,
     userId: json["userId"],
   );
 

@@ -14,12 +14,15 @@ class AppStrings {
   static const confirmPassword = 'CONFIRM PASSWORD';
   static const noUploadedFile = 'No Uploaded File';
   static const addYourThings = 'ADD YOUR THINGS';
+  static const updateYourThings = 'UPDATE YOUR THINGS';
+  static const updateYourThingsS = 'Update your thing';
   static const yourThings = 'Your\nThings';
   static const personal = 'Personal';
   static const business = 'Business';
   static const inbox = 'INBOX';
   static const subTitle = 'SubTitle';
   static const completed = 'COMPLETED';
+  static const pending = 'PENDING';
   static const addNewThing = 'Add new thing';
   static const taskName = 'Task Name';
   static const description = 'Description';
@@ -36,6 +39,9 @@ class AppStrings {
 
   //firebase success message
   static const accountCreated = 'Account created successfully :) ';
+  static const taskCompleted = 'Task Completed successfully :) ';
+  static const taskUpdated = 'Task Updated successfully :) ';
+  static const taskDeleted = 'Task Deleted successfully :) ';
   static const googleCreated = 'Login with google successfully :) ';
   static const googleCreatedFailed = 'Login with google failed :) ';
   static const loginSuccessfully = 'Login Successful';

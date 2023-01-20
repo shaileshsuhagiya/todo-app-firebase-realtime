@@ -1,9 +1,8 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebasedemo/src/configs/app_colors.dart';
-import 'package:firebasedemo/src/user_functionality/business_logic/view_models/task_controller.dart';
+import 'package:firebasedemo/src/user_functionality/business_logic/models/task_model.dart';
+import 'package:firebasedemo/src/user_functionality/business_logic/view_models/task_view_model.dart';
 import 'package:firebasedemo/src/constant/asset.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/utils/validations.dart';
-import 'package:firebasedemo/src/user_functionality/business_logic/view_models/add_new_things_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +16,16 @@ import '../../widgets/custom_drop_down.dart';
 
 class AddNewThingScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
-  final AddNewThingsModel _addNewThingsModel =
-      dependencyAssembler<AddNewThingsModel>();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
+  final TaskViewModel _taskViewModel = dependencyAssembler<TaskViewModel>();
   final _form = GlobalKey<FormState>(); //for storing form state.
 
-  final TaskController taskController = dependencyAssembler<TaskController>();
+  final TaskViewModel taskViewModel = dependencyAssembler<TaskViewModel>();
+  TaskModel? taskModel;
 
-  AddNewThingScreen({super.key});
+  AddNewThingScreen({
+    super.key,
+    this.taskModel,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +43,11 @@ class AddNewThingScreen extends StatelessWidget {
               size: 25,
             )),
         centerTitle: true,
-        title: const Text(
-          AppStrings.addNewThing,
-          style: TextStyle(fontSize: 17, color: AppColor.subTitle),
+        title: Text(
+          taskModel == null
+              ? AppStrings.addNewThing
+              : AppStrings.updateYourThingsS,
+          style: const TextStyle(fontSize: 17, color: AppColor.subTitle),
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -70,8 +71,8 @@ class AddNewThingScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 25.0, vertical: 20),
               child: ChangeNotifierProvider.value(
-                value: _addNewThingsModel,
-                child: Consumer<AddNewThingsModel>(
+                value: _taskViewModel,
+                child: Consumer<TaskViewModel>(
                   builder: (context, value, child) => Form(
                     key: _form,
                     child: Column(
@@ -87,7 +88,11 @@ class AddNewThingScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(14.0),
                             child: Image.asset(
-                              Asset.draw,
+                              _homeViewModel.category
+                                  .firstWhere((element) =>
+                                      element.categoryId ==
+                                      _taskViewModel.selectedCategoryId)
+                                  .categoryImage,
                               color: AppColor.skyBackgroundTextColor,
                             ),
                           ),
@@ -95,47 +100,59 @@ class AddNewThingScreen extends StatelessWidget {
                         const SizedBox(height: 40),
                         CustomDropDownButton(
                             dropDownList: _homeViewModel.category,
-                            dropdownValue: _addNewThingsModel.selectedCategory,
+                            dropdownValue: _taskViewModel.selectedCategory,
                             onChanged: (newValue) {
-                              _addNewThingsModel
-                                  .onChangeCategoryValue(newValue!);
+                              _taskViewModel.onChangeCategoryValue(newValue!);
                             }),
                         CommonTextFormField(
                           hintText: AppStrings.taskName,
-                          controller: titleController,
+                          controller: _taskViewModel.titleController,
                           validator: Validations().taskValidation,
                         ),
                         CommonTextFormField(
                           hintText: AppStrings.description,
                           validator: Validations().descriptionValidation,
-                          controller: descController,
+                          controller: _taskViewModel.descController,
                         ),
                         CommonTextFormField(
                           hintText: AppStrings.dueDate,
                           readOnly: true,
+                          validator: Validations().dateValidation,
                           onTap: () async {
-                            DateTime? pickedDate =
+                            _taskViewModel.pickedDate =
                                 await customDatePicker(context);
-                            if (pickedDate != null) {
+                            if (_taskViewModel.pickedDate != null) {
                               var formattedDate =
                                   DateFormat(AppStrings.dd_mm_yyyyy)
-                                      .format(pickedDate);
-                              dateController.text =
+                                      .format(_taskViewModel.pickedDate!);
+                              _taskViewModel.dateController.text =
                                   formattedDate; //formatted date output using intl package =>  2021-03-16
                               _homeViewModel.updateNotifierState();
                             } else {}
                           },
-                          controller: dateController,
+                          controller: _taskViewModel.dateController,
                         ),
                         UnifiedAppButton(
-                            buttonTitle: AppStrings.addYourThings,
+                            buttonTitle: taskModel == null
+                                ? AppStrings.addYourThings
+                                : AppStrings.updateYourThings,
                             onPress: () {
                               if (_form.currentState!.validate()) {
-                                taskController.addNewThing(
-                                    _homeViewModel.selectedCategoryId,
-                                    taskController.titleController.text,
-                                    taskController.descController.text,
-                                    DateTime.now());
+                                if (taskModel != null) {
+                                  taskViewModel.updateTask(
+                                      taskModel,
+                                      _taskViewModel.selectedCategoryId,
+                                      taskViewModel.titleController.text,
+                                      taskViewModel.descController.text,
+                                      taskViewModel.pickedDate!);
+                                  Navigator.pop(context);
+                                } else {
+                                  taskViewModel.addNewThing(
+                                      _taskViewModel.selectedCategoryId,
+                                      taskViewModel.titleController.text,
+                                      taskViewModel.descController.text,
+                                      taskViewModel.pickedDate!);
+                                }
                               }
                             }),
                       ],

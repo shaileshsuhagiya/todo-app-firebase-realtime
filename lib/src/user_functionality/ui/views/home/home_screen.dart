@@ -1,17 +1,24 @@
 import 'package:firebasedemo/src/configs/app_colors.dart';
 import 'package:firebasedemo/src/configs/app_strings.dart';
+import 'package:firebasedemo/src/user_functionality/ui/views/home/widget/category_tile.dart';
+import 'package:firebasedemo/src/user_functionality/ui/views/task/task_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../../../constant/asset.dart';
 import '../../../business_logic/models/category_model.dart';
 import '../../../business_logic/view_models/home_view_model.dart';
+import '../../../business_logic/view_models/task_view_model.dart';
 import '../../../services/dependency_assembler_education.dart';
 import '../add_new_thing/add_new_thing_screen.dart';
+import '../login/login_screen.dart';
 import 'widget/ripple_floating_button.dart';
-import 'task_list_screen.dart';
+import 'widget/round_container.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
+  final TaskViewModel _taskViewModel = dependencyAssembler<TaskViewModel>();
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -26,236 +33,244 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15),
           child: Image.asset(Asset.menu, color: AppColor.skyTextColor),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: IconButton(
+              icon: Image.asset(Asset.logout, color: AppColor.skyTextColor),
+              onPressed: () async {
+                await _homeViewModel.logOutCurrentUser();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                    (Route<dynamic> route) => false);
+              },
+            ),
+          ),
+        ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
+      body: ChangeNotifierProvider.value(
+        value: _homeViewModel,
+        child: Consumer<HomeViewModel>(builder: (context, value, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 235,
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage(Asset.skyBackground),
-                  fit: BoxFit.fill,
-                )),
+              Stack(
+                children: [
+                  Container(
+                    height: 235,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                      image: AssetImage(Asset.skyBackground),
+                      fit: BoxFit.fill,
+                    )),
+                  ),
+                  Container(
+                    height: 235,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.black45,
+                    child: SafeArea(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 70,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        AppStrings.yourThings,
+                                        style: TextStyle(
+                                          fontSize: 26,
+                                          color: AppColor.skyTextColor,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                              _homeViewModel
+                                                  .getCategoryCount(1)
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  color: AppColor.skyTextColor,
+                                                  fontWeight: FontWeight.w500)),
+                                          Text(AppStrings.personal,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: AppColor.textWhiteColor,
+                                              )),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                              _homeViewModel
+                                                  .getCategoryCount(2)
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  color: AppColor.skyTextColor,
+                                                  fontWeight: FontWeight.w500)),
+                                          Text(AppStrings.business,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: AppColor.textWhiteColor,
+                                              )),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 45),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        DateFormat('MMMM dd,yyyy')
+                                            .format(DateTime.now())
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: AppColor.textColor,
+                                        )),
+                                    Text(
+                                        '${_homeViewModel.getTodayPercentage()}% done',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColor.textWhiteColor,
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          Container(
+                            width: MediaQuery.of(context).size.width *
+                                (_homeViewModel.getTodayPercentage() / 100),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.withOpacity(0.5),
+                                  Colors.blue.withOpacity(0.6),
+                                  Colors.blue.withOpacity(0.7),
+                                ],
+                                stops: const [
+                                  0.1,
+                                  0.4,
+                                  0.5,
+                                ],
+                              ),
+                            ),
+                            child: const SizedBox(
+                              height: 5.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      height: 235,
+                      width: 150,
+                      color: Colors.black12,
+                    ),
+                  )
+                ],
               ),
-              Container(
-                height: 235,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.black45,
-                child: SafeArea(
+              const Padding(
+                padding: EdgeInsets.fromLTRB(20, 25, 20, 5),
+                child: Text(
+                  AppStrings.inbox,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 20, 20),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 70,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                AppStrings.yourThings,
-                                style: TextStyle(
-                                  fontSize: 26,
-                                  color: AppColor.skyTextColor,
-                                ),
-                              ),
-                              Spacer(),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
-                                  Text('24',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: AppColor.skyTextColor,
-                                          fontWeight: FontWeight.w500)),
-                                  Text(AppStrings.personal,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: AppColor.textColor,
-                                      )),
-                                ],
-                              ),
-                              SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: const [
-                                  Text('15',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: AppColor.skyTextColor,
-                                          fontWeight: FontWeight.w500)),
-                                  Text(AppStrings.business,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: AppColor.textColor,
-                                      )),
-                                ],
-                              )
-                            ],
+                        AnimationLimiter(
+                          child: ListView.separated(
+                            padding: const EdgeInsets.only(
+                                top: 5, left: 8, right: 8),
+                            separatorBuilder: (context, index) =>
+                                Container(height: 1, color: Colors.grey[200]),
+                            shrinkWrap: true,
+                            itemCount: _homeViewModel.category.length,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              CategoryModel category =
+                                  _homeViewModel.category[index];
+                              return CategoryTile(category, index);
+                            },
                           ),
                         ),
-                        const SizedBox(height: 45),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Sep 5,2015',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: AppColor.textColor,
-                                )),
-                            Text('65% done',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: AppColor.textColor,
-                                )),
-                          ],
+                        const SizedBox(height: 5),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TaskListScreen(
+                                      taskCategory: "", taskCategoryId: 0),
+                                ));
+                          },
+                          child: Hero(
+                            tag: 0,
+                            child: Row(
+                              children: [
+                                const Text(
+                                  AppStrings.completed,
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(width: 5),
+                                RoundContainer(
+                                  text: _homeViewModel.taskList
+                                      .where((element) => element.isCompleted)
+                                      .toList()
+                                      .length
+                                      .toString(),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              Positioned(
-                right: 0,
-                child: Container(
-                  height: 235,
-                  width: 150,
-                  color: Colors.black12,
-                ),
-              )
             ],
-          ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(20, 25, 20, 5),
-            child: Text(
-              AppStrings.inbox,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 20, 20),
-                child: Column(
-                  children: [
-                    AnimationLimiter(
-                      child: ListView.separated(
-                        padding:
-                            const EdgeInsets.only(top: 5, left: 8, right: 8),
-                        separatorBuilder: (context, index) =>
-                            Container(height: 1, color: Colors.grey[200]),
-                        shrinkWrap: true,
-                        itemCount: _homeViewModel.category.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          CategoryModel category =
-                              _homeViewModel.category[index];
-                          return AnimationConfiguration.staggeredList(
-                            position: index,
-                            child: SlideAnimation(
-                              verticalOffset: 50.0,
-                              child: ListTile(
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => TaskListScreen(
-                                          taskCategory: category.categoryName,
-                                        ),
-                                      ));
-                                },
-                                leading: Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.grey[200]!,
-                                      )),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Image.asset(
-                                      category.categoryImage,
-                                      fit: BoxFit.contain,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
-                                ),
-                                title: Text(
-                                  category.categoryName,
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.grey[900],
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                subtitle: const Text(
-                                  AppStrings.subTitle,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                trailing: const Padding(
-                                  padding: EdgeInsets.only(bottom: 12.0),
-                                  child: Text(
-                                    '9am',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        const Text(
-                          AppStrings.completed,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(width: 5),
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: Alignment.center,
-                          child: const Text('5',
-                              style: TextStyle(
-                                color: AppColor.tileColor,
-                                fontSize: 11,
-                              )),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+          );
+        }),
       ),
       floatingActionButton: RippleFloatingButton(
         color: AppColor.skyBackgroundTextColor,
@@ -263,6 +278,7 @@ class HomeScreen extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(50),
           onTap: () {
+            _taskViewModel.clearData();
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => AddNewThingScreen(),
             ));

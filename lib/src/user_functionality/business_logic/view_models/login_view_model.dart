@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebasedemo/src/configs/app_strings.dart';
-import 'package:firebasedemo/src/user_functionality/business_logic/enums/view_state.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../constant/constants.dart';
 import '../../ui/views/home/home_screen.dart';
-import '../../ui/views/profile/profile_screen.dart';
 import '../models/base_model.dart';
 import '../models/user_entity_model.dart';
 import '../utils/app_preference.dart';
@@ -103,4 +101,5 @@ class LoginViewModel extends BaseModel {
     emailController.clear();
     passwordController.clear();
   }
+
 }

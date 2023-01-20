@@ -8,7 +8,6 @@ import 'package:firebasedemo/src/core/helpers/dark_light_helper.dart';
 import 'package:firebasedemo/src/user_functionality/business_logic/utils/app_preference.dart';
 import 'package:firebasedemo/src/user_functionality/services/dependency_assembler_education.dart'
     as user;
-import 'package:firebasedemo/src/user_functionality/ui/views/profile/profile_screen.dart';
 import 'src/user_functionality/ui/views/login/login_screen.dart';
 
 void main() async {

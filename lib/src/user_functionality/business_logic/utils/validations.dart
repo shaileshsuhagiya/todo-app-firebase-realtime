@@ -39,6 +39,14 @@ class Validations {
     }
     return null;
   }
+
+  String? dateValidation(value) {
+    if (value.isEmpty) {
+      return "Due Date Can't Empty";
+    }
+    return null;
+  }
+
   String? taskValidation(value) {
     if (value.isEmpty) {
       return "Task Can't Empty";
@@ -46,20 +54,14 @@ class Validations {
     return null;
   }
 
+}
 
- /* String? confirmPasswordValidation(value) {
-    final AuthenticationViewModel auth =
-        dependencyAssembler<AuthenticationViewModel>();
-    RegExp regex = new RegExp(r'^.{6,}$');
-    if (value!.isEmpty) {
-      return ("Confirm Password is required for register");
-    }
-    if (!regex.hasMatch(value)) {
-      return ("Enter Valid Confirm Password(Min. 6 Character)");
-    }
-    if (auth.passwordController.text != value.toString()) {
-      return ('Password must be same as above');
-    }
-    return null;
-  }*/
+extension DateHelpers on DateTime {
+  bool isToday() {
+    final now = DateTime.now();
+    return now.day == this.day &&
+        now.month == this.month &&
+        now.year == this.year;
+  }
+
 }

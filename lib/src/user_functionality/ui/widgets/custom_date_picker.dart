@@ -20,7 +20,7 @@ Future<DateTime?> customDatePicker(context) async {
         );
       },
       initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
+      firstDate:  DateTime.now(),
       //DateTime.now() - not to allow to choose before today.
       lastDate: DateTime(2100));
   return pickedDate;
