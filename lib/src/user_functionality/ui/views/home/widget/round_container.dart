@@ -12,7 +12,7 @@ class RoundContainer extends StatelessWidget {
       height: 20,
       width: 20,
       decoration: BoxDecoration(
-        color: Colors.grey[400]!,
+        color: Color(0xFF999caa),
         shape: BoxShape.circle,
       ),
       alignment: Alignment.center,

@@ -5,6 +5,7 @@ import 'package:firebasedemo/src/user_functionality/ui/views/task/task_list_scre
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import '../../../../constant/asset.dart';
 import '../../../business_logic/models/category_model.dart';
@@ -19,6 +20,7 @@ import 'widget/round_container.dart';
 class HomeScreen extends StatelessWidget {
   final HomeViewModel _homeViewModel = dependencyAssembler<HomeViewModel>();
   final TaskViewModel _taskViewModel = dependencyAssembler<TaskViewModel>();
+
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -68,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     height: 235,
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.black45,
+                    color: Color(0xff4b6495).withOpacity(0.6),
                     child: SafeArea(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,9 +104,9 @@ class HomeScreen extends StatelessWidget {
                                               _homeViewModel
                                                   .getCategoryCount(1)
                                                   .toString(),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 20,
-                                                  color: AppColor.skyTextColor,
+                                                  color: AppColor.tileColor,
                                                   fontWeight: FontWeight.w500)),
                                           Text(AppStrings.personal,
                                               style: TextStyle(
@@ -124,9 +126,9 @@ class HomeScreen extends StatelessWidget {
                                               _homeViewModel
                                                   .getCategoryCount(2)
                                                   .toString(),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 20,
-                                                  color: AppColor.skyTextColor,
+                                                  color: AppColor.tileColor,
                                                   fontWeight: FontWeight.w500)),
                                           Text(AppStrings.business,
                                               style: TextStyle(
@@ -144,18 +146,30 @@ class HomeScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                        DateFormat('MMMM dd,yyyy')
+                                        DateFormat('MMM dd, yyyy')
                                             .format(DateTime.now())
                                             .toString(),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 12,
-                                          color: AppColor.textColor,
+                                          color: AppColor.appbarTextColor,
                                         )),
+                                    Spacer(),
+                                    CircularPercentIndicator(
+                                      radius: 10.0,
+                                      lineWidth: 2.0,
+                                      percent:
+                                           double.tryParse(_homeViewModel.getTodayPercentage().toString())!,
+                                      progressColor: AppColor.color_5497b2,
+                                      backgroundColor: AppColor.backGroundColor,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
                                     Text(
                                         '${_homeViewModel.getTodayPercentage()}% done',
                                         style: TextStyle(
                                           fontSize: 12,
-                                          color: AppColor.textWhiteColor,
+                                          color: AppColor.appbarTextColor,
                                         )),
                                   ],
                                 ),

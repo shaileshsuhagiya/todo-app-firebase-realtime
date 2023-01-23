@@ -54,14 +54,14 @@ class CategoryTile extends StatelessWidget {
             title: Text(
               category.categoryName,
               style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 14,
                   color: Colors.grey[900],
                   fontWeight: FontWeight.w500),
             ),
             subtitle: _homeViewModel.getCategorySubTitle(category.categoryId) != null?Text(
               _homeViewModel.getCategorySubTitle(category.categoryId),
               style: const TextStyle(
-                fontSize: 11,
+                fontSize: 12,
                 color: Colors.grey,
               ),
             ): null,
