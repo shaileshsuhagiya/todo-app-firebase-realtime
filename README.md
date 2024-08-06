@@ -1,17 +1,19 @@
-# mvvm_demo
+This is a Flutter-based TODO application that uses Firebase Realtime Database to handle task management. The app allows users to add, edit, and delete tasks, with real-time synchronization across all devices connected to the Firebase backend.
 
-A new Flutter project.
+Features
+Add Tasks: Users can create new tasks.
+Edit Tasks: Users can modify existing tasks.
+Delete Tasks: Users can remove tasks from their list.
+Real-time Sync: Tasks are synchronized in real-time across all devices.
 
-## Getting Started
+Technologies Used
+Flutter: For building the cross-platform mobile application.
+Firebase Realtime Database: For real-time data storage and synchronization.
+Dart: The programming language used by Flutter.
+Firebase SDK: For integrating Firebase services into the app.
 
-This project is a starting point for a Flutter application.
+Contributing
+Contributions are welcome! Please open an issue or submit a pull request if you have any improvements or fixes.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# flutter-provider-mvvm-architecture
+Contact
+For questions or feedback, please reach out to shailesh.dev1997@gmail.com.
